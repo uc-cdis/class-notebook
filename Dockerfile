@@ -36,9 +36,12 @@ RUN conda config --system --append channels r && \
     'r-rcurl' \
     'r-crayon' \
     'r-randomforest' && \
+    'r-rmysql' && \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
+
+RUN echo "source('https://www.bioconductor.org/biocLite.R'); biocLite('maftools')" | R --no-save
 
 COPY TCGA.THCA.mutect.13999735-2e70-439f-a6d9-45d831ba1a1a.DR-10.0.somatic.maf.gz /home/jovyan/TCGA.THCA.mutect.13999735-2e70-439f-a6d9-45d831ba1a1a.DR-10.0.somatic.maf.gz
 
